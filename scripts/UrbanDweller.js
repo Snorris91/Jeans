@@ -9,9 +9,10 @@ export const locationsTypeChoices = async () => {
     document.addEventListener("change", handleLocation)
 
     let choicesHTML = "<h2>Which type of area do you live in?</h2>"
-    for (const location of locations) {
-        choicesHTML += `<input type="radio" name="location" value="${location.id}" />${location.label}`
-    }
+    const locationArr = locations.map((location) =>  {
+        return `<input type="radio" name="location" value="${location.id}" />${location.label}`
+    })
+    choicesHTML += locationArr.join("")
     return choicesHTML
 }
 
