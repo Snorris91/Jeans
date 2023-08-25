@@ -1,19 +1,25 @@
 // Set up the transient state data structure and provide initial valuess
-const transientState = {
-    "ownsBlueJeans": false,
-    "socioLocationId": 0
-}
+const transientState = new Map()
+transientState.set("ownsBlueJeans", false)
+transientState.set("socioLocationId", 0)
+
+
+
+
+
+// {
+//     "ownsBlueJeans": false,
+//     "socioLocationId": 0
+// }
 
 
 // Functions to modify each property of transient state
 
 export const setOwnsBlueJeans = (chosenOwnership) => {
-    transientState.ownsBlueJeans = chosenOwnership
-    console.log(transientState)
+    transientState.set("ownsBlueJeans", chosenOwnership)
 }
 export const setSocioLocationID = (chosenLocation) => {
-    transientState.socioLocationId = chosenLocation
-    console.log(transientState)
+    transientState.set("socioLocationId", chosenLocation)
 }
 
 
@@ -22,12 +28,13 @@ export const setSocioLocationID = (chosenLocation) => {
 
 
 export const saveSurveySubmission = async () => {
+    const selection = Object.fromEntries(transientState)
     const postOptions = {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(transientState)
+        body: JSON.stringify(selection)
     }
 
      const response = await fetch("http://localhost:8088/submissions", postOptions)
